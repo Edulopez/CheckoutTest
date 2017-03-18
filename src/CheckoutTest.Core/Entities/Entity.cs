@@ -9,7 +9,7 @@ namespace CheckoutTest.Core.Entities
     public class Entity
     {
         public int Id { get; set; }
-        public bool isActive { get; set; }
+        public bool IsActive { get; set; }
         public DateTime CreatedAt { get; set; } = DateTime.Now;
     }
 }
