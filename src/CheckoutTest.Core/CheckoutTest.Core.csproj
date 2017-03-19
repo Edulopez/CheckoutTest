@@ -71,6 +71,7 @@
     <Compile Include="Entities\TitleEntity.cs" />
     <Compile Include="Framework\BaseService.cs" />
     <Compile Include="Framework\TaskResult.cs" />
+    <Compile Include="Helpers\SanitizerHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\Abstract\IReadOnlyRepository.cs" />
     <Compile Include="Repositories\Abstract\IShoppingListItemRepository.cs" />

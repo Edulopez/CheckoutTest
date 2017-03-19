@@ -13,6 +13,13 @@ namespace CheckoutTest.Dal.Repositories
     {
         public ShoppingListItemRepository() 
         {
+
+        }
+
+        public new void Update(ShoppingListItem entity)
+        {
+            EntitySet[entity.Id].Title = entity.Title;
+            EntitySet[entity.Id].Quantity = entity.Quantity;
         }
     }
 }

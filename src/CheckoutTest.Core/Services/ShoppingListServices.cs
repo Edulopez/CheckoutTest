@@ -5,6 +5,7 @@ using System.Text;
 using CheckoutTest.Core.Entities;
 using CheckoutTest.Core.Framework;
 using CheckoutTest.Core.Repositories.Abstract;
+using CheckoutTest.Core.Helpers;
 namespace CheckoutTest.Core.Services
 {
     public class ShoppingListServices : BaseService<ShoppingListItem>, IShoppingListService
@@ -15,6 +16,15 @@ namespace CheckoutTest.Core.Services
             _ShoppingListRepository = shoppingListRepository;
         }
 
+
+        public override TaskResult ValidateOnCreate(ShoppingListItem entity)
+        {
+            if (entity == null) TaskResult.AddErrorMessage("Not a valid object");
+            else if (GetItemByName(entity.Title) != null)
+                TaskResult.AddErrorMessage("Title must be unique");
+
+            return TaskResult;
+        }
         public override TaskResult Create(ShoppingListItem entity)
         {
             ValidateOnCreate(entity);
@@ -23,6 +33,7 @@ namespace CheckoutTest.Core.Services
                 try
                 {
                     _ShoppingListRepository.Add(entity);
+                    TaskResult.AddMessage("Entity created");
                 }
                 catch (Exception ex)
                 {
@@ -31,47 +42,42 @@ namespace CheckoutTest.Core.Services
                 }
             }
             return TaskResult;
-        }   
+        }
 
-        public override TaskResult Delete(int entityId)
+        public ShoppingListItem GetById(int id)
         {
-            if (TaskResult.ExecutedSuccesfully)
+            try
             {
-                try
-                {
-                    _ShoppingListRepository.Remove(entityId);
-                }
-                catch (Exception ex)
-                {
-                    TaskResult.AddErrorMessage("Could not delete");
-                    TaskResult.Exception = ex;
-                }
+                return _ShoppingListRepository.GetById(id);
             }
-            return TaskResult;
+            catch (Exception ex)
+            {
+                TaskResult.AddErrorMessage("Could not get");
+                TaskResult.Exception = ex;
+                return null;
+            }
         }
 
         public ShoppingListItem GetItemByName(string itemName)
         {
-            if (!TaskResult.ExecutedSuccesfully)
-                return null;
             if (string.IsNullOrEmpty(itemName))
                 return null;
-            if (!TaskResult.ExecutedSuccesfully)
+            if (!SanitizerHelper.IsClean(itemName))
                 return null;
             try
             {
                 return _ShoppingListRepository.GetByFilter(0, 1, x => x.Title.ToLower() == itemName.ToLower()).FirstOrDefault();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                TaskResult.AddErrorMessage("Could not get");
+                TaskResult.Exception = ex;
                 return null;
             }
         }
 
         public IEnumerable<ShoppingListItem> GetItems()
         {
-            if(TaskResult.ExecutedSuccesfully)
-            {
                 try
                 {
                     return _ShoppingListRepository.GetAll();
@@ -82,10 +88,21 @@ namespace CheckoutTest.Core.Services
                     TaskResult.Exception = ex;
                     return null;
                 }
-            }
-            return null;
         }
 
+
+        public override TaskResult ValidateOnUpdate(ShoppingListItem entity)
+        {
+            if (entity == null) TaskResult.AddErrorMessage("Not a valid object");
+
+            else if( GetById(entity.Id) == null)
+                TaskResult.AddErrorMessage("Item must exist");
+
+            else if (GetItemByName(entity.Title) != null)
+                TaskResult.AddErrorMessage("Title must be unique");
+
+            return TaskResult;
+        }
         public override TaskResult Update(ShoppingListItem entity)
         {
             ValidateOnUpdate(entity);
@@ -105,37 +122,39 @@ namespace CheckoutTest.Core.Services
             return TaskResult;
         }
 
-        public override TaskResult ValidateOnCreate(ShoppingListItem entity)
-        {
-            if (entity == null) TaskResult.AddErrorMessage("Not a valid object");
-            else if (GetItemByName(entity.Title) != null)
-                TaskResult.AddErrorMessage("Title must be unique");
-
-            return TaskResult;
-        }
-
         public override TaskResult ValidateOnDelete(ShoppingListItem entity)
         {
-            if (entity == null) TaskResult.AddErrorMessage("Not a valid object");
+            if (entity == null)
+                TaskResult.AddErrorMessage("Not a valid object");
 
             return TaskResult;
         }
-
-        public override TaskResult ValidateOnUpdate(ShoppingListItem entity)
+        public override TaskResult Delete(int entityId)
         {
-            if (entity == null) TaskResult.AddErrorMessage("Not a valid object");
-
-           else  if (GetItemByName(entity.Title) != null)
-                TaskResult.AddErrorMessage("Title must be unique");
-
+            ValidateOnDelete(GetById(entityId));
+            if (TaskResult.ExecutedSuccesfully)
+            {
+                try
+                {
+                    _ShoppingListRepository.Remove(entityId);
+                    TaskResult.AddMessage("Entity deleted");
+                }
+                catch (Exception ex)
+                {
+                    TaskResult.AddErrorMessage("Could not delete");
+                    TaskResult.Exception = ex;
+                }
+            }
             return TaskResult;
         }
+
     }
 
     public interface IShoppingListService : Framework.IBaseService<ShoppingListItem>
     {
         IEnumerable<ShoppingListItem> GetItems();
         ShoppingListItem GetItemByName(string itemName);
+        ShoppingListItem GetById(int id);
     }
 
 }

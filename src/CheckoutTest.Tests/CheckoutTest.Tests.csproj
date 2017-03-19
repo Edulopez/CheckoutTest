@@ -94,6 +94,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Controllers\HomeControllerTest.cs" />
     <Compile Include="Controllers\ValuesControllerTest.cs" />
+    <Compile Include="Services\ShoppingListServicesTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App.config" />
@@ -102,6 +103,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\CheckoutTest.Core\CheckoutTest.Core.csproj">
+      <Project>{48A57B72-D69F-4454-81DA-156709FAE84E}</Project>
+      <Name>CheckoutTest.Core</Name>
+    </ProjectReference>
     <ProjectReference Include="..\CheckoutTest\CheckoutTest.csproj">
       <Project>{118F87F9-D049-4BE2-A130-B8DDA088DE59}</Project>
       <Name>CheckoutTest</Name>

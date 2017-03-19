@@ -19,7 +19,7 @@ namespace CheckoutTest.Dal.Repositories
         }
         public void Update(T entity)
         {
-            var e = EntitySet[entity.Id] = entity;
+            EntitySet[entity.Id].IsActive = entity.IsActive;
         }
         public void Remove(int id)
         {
