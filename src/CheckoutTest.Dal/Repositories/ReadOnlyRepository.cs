@@ -4,18 +4,24 @@ using System.Linq;
 using System.Linq.Expressions;
 using CheckoutTest.Core.Repositories.Abstract;
 using CheckoutTest.Core.Entities;
-using CheckoutTest.Dal.Context;
 
-namespace CheckoutTest.Dal.Repositories.Concrete
+namespace CheckoutTest.Dal.Repositories
 {
     public class ReadOnlyRepository<T> : IReadOnlyRepository<T> where T : Entity
     {
-        protected DbContext<T> _context;
-        protected Dictionary<int, T> EntitySet;
-        public ReadOnlyRepository( DbContext<T> dbcontext)
+        /// <summary>
+        /// In memory database
+        /// </summary>
+        private static Dictionary<int, T> Database { get; set; } = new Dictionary<int, T>();
+        
+        protected Dictionary<int, T> EntitySet
         {
-            _context = dbcontext;
-            EntitySet = dbcontext.Database;
+            get
+            {
+                if (Database == null)
+                    Database = new Dictionary<int, T>();
+                return Database;
+            }
         }
     
         public IEnumerable<T> GetAll()
@@ -41,7 +47,7 @@ namespace CheckoutTest.Dal.Repositories.Concrete
 
         public IEnumerable<T> GetByFilter(int page, int count, Func<T, bool> filterBy)
         {
-            return this.GetAll().Where(x => x.IsActive).Where(filterBy).Skip(page * count).Take(count);
+            return this.GetAll().Where(x => x.IsActive ==true).Where(filterBy).Skip(page * count).Take(count);
         }
     }
 }

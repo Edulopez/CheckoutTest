@@ -9,6 +9,7 @@ namespace CheckoutTest.Core.Repositories.Abstract
     {
         int Count();
         T GetById(int id);
+        IEnumerable<T> GetAll();
         IEnumerable<T> GetLatests(int number);
         IEnumerable<T> GetByFilter(int page, int count, Func<T, bool> filterBy);
     }
