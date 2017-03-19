@@ -31,7 +31,7 @@ namespace CheckoutTest.DependencyResolution {
                     scan.TheCallingAssembly();
                     scan.WithDefaultConventions();
                 });
-            For<IShoppingListService>().Use<ShoppingListServices>();
+            For<IShoppingListItemService>().Use<ShoppingListItemService>();
             For<IShoppingListItemRepository>().Use<Dal.Repositories.ShoppingListItemRepository>();
         }
 

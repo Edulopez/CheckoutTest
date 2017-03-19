@@ -8,10 +8,13 @@ using CheckoutTest.Core.Repositories.Abstract;
 using CheckoutTest.Core.Helpers;
 namespace CheckoutTest.Core.Services
 {
-    public class ShoppingListServices : BaseService<ShoppingListItem>, IShoppingListService
+    /// <summary>
+    /// Contains all the logic related to the ShoppingListItems
+    /// </summary>
+    public class ShoppingListItemService : BaseService<ShoppingListItem>, IShoppingListItemService
     {
         IShoppingListItemRepository _ShoppingListRepository;
-        public ShoppingListServices(IShoppingListItemRepository shoppingListRepository)
+        public ShoppingListItemService(IShoppingListItemRepository shoppingListRepository)
         {
             _ShoppingListRepository = shoppingListRepository;
         }
@@ -150,7 +153,7 @@ namespace CheckoutTest.Core.Services
 
     }
 
-    public interface IShoppingListService : Framework.IBaseService<ShoppingListItem>
+    public interface IShoppingListItemService : Framework.IBaseService<ShoppingListItem>
     {
         IEnumerable<ShoppingListItem> GetItems();
         ShoppingListItem GetItemByName(string itemName);

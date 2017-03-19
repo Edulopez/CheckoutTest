@@ -9,9 +9,9 @@ namespace CheckoutTest.Controllers
 {
     public class HomeController : Controller
     {
-        IShoppingListService _shoppingListService;
+        IShoppingListItemService _shoppingListService;
 
-        public HomeController( IShoppingListService shoppingListService)
+        public HomeController( IShoppingListItemService shoppingListService)
         {
             _shoppingListService = shoppingListService;
         }

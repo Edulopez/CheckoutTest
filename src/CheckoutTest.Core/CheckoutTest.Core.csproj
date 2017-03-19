@@ -76,7 +76,7 @@
     <Compile Include="Repositories\Abstract\IReadOnlyRepository.cs" />
     <Compile Include="Repositories\Abstract\IShoppingListItemRepository.cs" />
     <Compile Include="Repositories\Abstract\IWriteableRepository.cs" />
-    <Compile Include="Services\ShoppingListServices.cs" />
+    <Compile Include="Services\ShoppingListItemService.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

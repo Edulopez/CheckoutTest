@@ -13,8 +13,8 @@ namespace CheckoutTest.Controllers
     [RoutePrefix("api/ShoppingList")]
     public class ShoppingListController : ApiController
     {
-        private readonly IShoppingListService _shoppingListService;
-        public ShoppingListController(IShoppingListService shoppingListService)
+        private readonly IShoppingListItemService _shoppingListService;
+        public ShoppingListController(IShoppingListItemService shoppingListService)
         {
             _shoppingListService = shoppingListService;
         }
