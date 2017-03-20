@@ -10,11 +10,11 @@ using CheckoutTest.Core.Helpers;
 
 namespace CheckoutTest.Controllers
 {
-    [RoutePrefix("api/ShoppingList")]
-    public class ShoppingListController : ApiController
+    [RoutePrefix("api/ShoppingListItem")]
+    public class ShoppingListItemController : ApiController
     {
         private readonly IShoppingListItemService _shoppingListService;
-        public ShoppingListController(IShoppingListItemService shoppingListService)
+        public ShoppingListItemController(IShoppingListItemService shoppingListService)
         {
             _shoppingListService = shoppingListService;
         }

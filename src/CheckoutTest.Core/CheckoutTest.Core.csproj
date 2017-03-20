@@ -65,8 +65,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Entities\Entity.cs" />
-    <Compile Include="Entities\Item.cs" />
-    <Compile Include="Entities\ShoppingList.cs" />
     <Compile Include="Entities\ShoppingListItem.cs" />
     <Compile Include="Entities\TitleEntity.cs" />
     <Compile Include="Framework\BaseService.cs" />
