@@ -10,7 +10,7 @@ using CheckoutTest.Core.Helpers;
 
 namespace CheckoutTest.Controllers
 {
-    [RoutePrefix("Cart/items")]
+    [RoutePrefix("Carts/items")]
     public class ItemController : ApiController
     {
         private readonly IItemService _itemService;
@@ -19,7 +19,7 @@ namespace CheckoutTest.Controllers
             _itemService = itemService;
         }
 
-        /// Post Cart/Item/
+        /// Post Carts/Item/
         [Route("")]
         [HttpPost]
         public HttpResponseMessage Add(Item item)
@@ -36,7 +36,7 @@ namespace CheckoutTest.Controllers
             }
         }
 
-        /// Get Cart/Item/{title:string}
+        /// Get Carts/Item/{title:string}
         [Route("")]
         [HttpGet]
         public HttpResponseMessage Get(string title)
@@ -53,7 +53,7 @@ namespace CheckoutTest.Controllers
             }
         }
         
-        /// Get Cart/Item/
+        /// Get Carts/Item/
         [Route("")]
         [HttpGet]
         public HttpResponseMessage Get()
@@ -69,7 +69,7 @@ namespace CheckoutTest.Controllers
             }
         }
 
-        /// PUT Cart/Item/
+        /// PUT Carts/Item/
         [Route("")]
         [HttpPut]
         public HttpResponseMessage Update(Item item)
@@ -86,7 +86,7 @@ namespace CheckoutTest.Controllers
             }
         }
 
-        /// Delete Cart/Item/{id}
+        /// Delete Carts/Item/{id}
         [Route("")]
         [HttpDelete]
         public HttpResponseMessage Delete(int id)
