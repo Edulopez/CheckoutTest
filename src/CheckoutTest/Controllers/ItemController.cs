@@ -10,23 +10,25 @@ using CheckoutTest.Core.Helpers;
 
 namespace CheckoutTest.Controllers
 {
-    [RoutePrefix("api/ShoppingListItem")]
-    public class ShoppingListItemController : ApiController
+    [RoutePrefix("Cart/items")]
+    public class ItemController : ApiController
     {
-        private readonly IShoppingListItemService _shoppingListService;
-        public ShoppingListItemController(IShoppingListItemService shoppingListService)
+        private readonly IItemService _itemService;
+        public ItemController(IItemService itemService)
         {
-            _shoppingListService = shoppingListService;
+            _itemService = itemService;
         }
-        
+
+        /// Post Cart/Item/
+        [Route("")]
         [HttpPost]
-        public HttpResponseMessage Add(ShoppingListItem item)
+        public HttpResponseMessage Add(Item item)
         {
             SanitizerHelper.Paranoide(item);
-            var result = _shoppingListService.Create(item);
+            var result = _itemService.Create(item);
             if(result.ExecutedSuccesfully)
             {
-                return Request.CreateResponse(HttpStatusCode.OK, item) ;
+                return Request.CreateResponse(HttpStatusCode.Created, item) ;
             }
             else
             {
@@ -34,11 +36,13 @@ namespace CheckoutTest.Controllers
             }
         }
 
+        /// Get Cart/Item/{title:string}
+        [Route("")]
         [HttpGet]
-        public HttpResponseMessage GetByName(string title)
+        public HttpResponseMessage Get(string title)
         {
             SanitizerHelper.Paranoide(title);
-            var result = _shoppingListService.GetItemByName(title);
+            var result = _itemService.GetItemByName(title);
             if (result != null)
             {
                 return Request.CreateResponse(HttpStatusCode.OK, result);
@@ -48,11 +52,13 @@ namespace CheckoutTest.Controllers
                 return Request.CreateResponse(HttpStatusCode.BadRequest, new { Message = "Not found" });
             }
         }
-
+        
+        /// Get Cart/Item/
+        [Route("")]
         [HttpGet]
-        public HttpResponseMessage GetAll()
+        public HttpResponseMessage Get()
         {
-            var result = _shoppingListService.GetItems();
+            var result = _itemService.GetItems();
             if (result != null)
             {
                 return Request.CreateResponse(HttpStatusCode.OK, result);
@@ -63,11 +69,13 @@ namespace CheckoutTest.Controllers
             }
         }
 
+        /// PUT Cart/Item/
+        [Route("")]
         [HttpPut]
-        public HttpResponseMessage Update(ShoppingListItem item)
+        public HttpResponseMessage Update(Item item)
         {
             SanitizerHelper.Paranoide(item);
-            var result = _shoppingListService.Update(item);
+            var result = _itemService.Update(item);
             if (result.ExecutedSuccesfully)
             {
                 return Request.CreateResponse(HttpStatusCode.OK, item);
@@ -78,10 +86,12 @@ namespace CheckoutTest.Controllers
             }
         }
 
+        /// Delete Cart/Item/{id}
+        [Route("")]
         [HttpDelete]
         public HttpResponseMessage Delete(int id)
         {
-            var result = _shoppingListService.Delete(id);
+            var result = _itemService.Delete(id);
             if (result.ExecutedSuccesfully)
             {
                 return Request.CreateResponse(HttpStatusCode.OK, new { Message = result.Message });

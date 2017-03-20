@@ -11,16 +11,16 @@ namespace CheckoutTest.Core.Services
     /// <summary>
     /// Contains all the logic related to the ShoppingListItems
     /// </summary>
-    public class ShoppingListItemService : BaseService<ShoppingListItem>, IShoppingListItemService
+    public class ItemService : BaseService<Item>, IItemService
     {
-        IShoppingListItemRepository _ShoppingListRepository;
-        public ShoppingListItemService(IShoppingListItemRepository shoppingListRepository)
+        IItemRepository _itemRepository;    
+        public ItemService(IItemRepository itemRepository)
         {
-            _ShoppingListRepository = shoppingListRepository;
+            _itemRepository = itemRepository;
         }
 
 
-        public override TaskResult ValidateOnCreate(ShoppingListItem entity)
+        public override TaskResult ValidateOnCreate(Item entity)
         {
             if (entity == null) TaskResult.AddErrorMessage("Not a valid object");
             else if (GetItemByName(entity.Title) != null)
@@ -28,14 +28,14 @@ namespace CheckoutTest.Core.Services
 
             return TaskResult;
         }
-        public override TaskResult Create(ShoppingListItem entity)
+        public override TaskResult Create(Item entity)
         {
             ValidateOnCreate(entity);
             if(TaskResult.ExecutedSuccesfully)
             {
                 try
                 {
-                    _ShoppingListRepository.Add(entity);
+                    _itemRepository.Add(entity);
                     TaskResult.AddMessage("Entity created");
                 }
                 catch (Exception ex)
@@ -47,11 +47,11 @@ namespace CheckoutTest.Core.Services
             return TaskResult;
         }
 
-        public ShoppingListItem GetById(int id)
+        public Item GetById(int id)
         {
             try
             {
-                return _ShoppingListRepository.GetById(id);
+                return _itemRepository.GetById(id);
             }
             catch (Exception ex)
             {
@@ -61,7 +61,7 @@ namespace CheckoutTest.Core.Services
             }
         }
 
-        public ShoppingListItem GetItemByName(string itemName)
+        public Item GetItemByName(string itemName)
         {
             if (string.IsNullOrEmpty(itemName))
                 return null;
@@ -69,7 +69,7 @@ namespace CheckoutTest.Core.Services
                 return null;
             try
             {
-                return _ShoppingListRepository.GetByFilter(0, 1, x => x.Title.ToLower() == itemName.ToLower()).FirstOrDefault();
+                return _itemRepository.GetByFilter(0, 1, x => x.Title.ToLower() == itemName.ToLower()).FirstOrDefault();
             }
             catch (Exception ex)
             {
@@ -79,11 +79,11 @@ namespace CheckoutTest.Core.Services
             }
         }
 
-        public IEnumerable<ShoppingListItem> GetItems()
+        public IEnumerable<Item> GetItems()
         {
                 try
                 {
-                    return _ShoppingListRepository.GetAll();
+                    return _itemRepository.GetAll();
                 }
                 catch (Exception ex)
                 {
@@ -94,7 +94,7 @@ namespace CheckoutTest.Core.Services
         }
 
 
-        public override TaskResult ValidateOnUpdate(ShoppingListItem entity)
+        public override TaskResult ValidateOnUpdate(Item entity)
         {
             if (entity == null) TaskResult.AddErrorMessage("Not a valid object");
 
@@ -106,14 +106,14 @@ namespace CheckoutTest.Core.Services
 
             return TaskResult;
         }
-        public override TaskResult Update(ShoppingListItem entity)
+        public override TaskResult Update(Item entity)
         {
             ValidateOnUpdate(entity);
             if (TaskResult.ExecutedSuccesfully)
             {
                 try
                 {
-                    _ShoppingListRepository.Update(entity);
+                    _itemRepository.Update(entity);
                     TaskResult.AddMessage("Entity updated");
                 }
                 catch (Exception ex)
@@ -125,7 +125,7 @@ namespace CheckoutTest.Core.Services
             return TaskResult;
         }
 
-        public override TaskResult ValidateOnDelete(ShoppingListItem entity)
+        public override TaskResult ValidateOnDelete(Item entity)
         {
             if (entity == null)
                 TaskResult.AddErrorMessage("Not a valid object");
@@ -139,7 +139,7 @@ namespace CheckoutTest.Core.Services
             {
                 try
                 {
-                    _ShoppingListRepository.Remove(entityId);
+                    _itemRepository.Remove(entityId);
                     TaskResult.AddMessage("Entity deleted");
                 }
                 catch (Exception ex)
@@ -153,11 +153,11 @@ namespace CheckoutTest.Core.Services
 
     }
 
-    public interface IShoppingListItemService : Framework.IBaseService<ShoppingListItem>
+    public interface IItemService : Framework.IBaseService<Item>
     {
-        IEnumerable<ShoppingListItem> GetItems();
-        ShoppingListItem GetItemByName(string itemName);
-        ShoppingListItem GetById(int id);
+        IEnumerable<Item> GetItems();
+        Item GetItemByName(string itemName);
+        Item GetById(int id);
     }
 
 }

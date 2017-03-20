@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CheckoutTest.Core.Entities
 {
-    public class ShoppingListItem:TitleEntity
+    public class Item:TitleEntity
     {
         public int Quantity { get; set; } = 0;
     }

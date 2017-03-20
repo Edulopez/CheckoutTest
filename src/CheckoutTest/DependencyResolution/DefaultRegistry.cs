@@ -18,6 +18,7 @@ using CheckoutTest.Core.Repositories.Abstract;
 using CheckoutTest.Core.Services;
 namespace CheckoutTest.DependencyResolution {
     using System.Web;
+    using Areas.HelpPage.Controllers;
     using Microsoft.Owin.Security;
     using StructureMap.Configuration.DSL;
     using StructureMap.Graph;
@@ -31,8 +32,9 @@ namespace CheckoutTest.DependencyResolution {
                     scan.TheCallingAssembly();
                     scan.WithDefaultConventions();
                 });
-            For<IShoppingListItemService>().Use<ShoppingListItemService>();
-            For<IShoppingListItemRepository>().Use<Dal.Repositories.ShoppingListItemRepository>();
+            For<IItemService>().Use<ItemService>();
+            For<IItemRepository>().Use<Dal.Repositories.ItemRepository>();
+            For<HelpController>().Use(ctx => new HelpController());
         }
 
         #endregion

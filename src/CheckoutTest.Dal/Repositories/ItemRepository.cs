@@ -9,14 +9,14 @@ using CheckoutTest.Dal.Repositories;
 
 namespace CheckoutTest.Dal.Repositories
 {
-    public class ShoppingListItemRepository : WriteableRepository<ShoppingListItem>, IShoppingListItemRepository
+    public class ItemRepository : WriteableRepository<Item>, IItemRepository
     {
-        public ShoppingListItemRepository() 
+        public ItemRepository() 
         {
 
         }
 
-        public new void Update(ShoppingListItem entity)
+        public new void Update(Item entity)
         {
             EntitySet[entity.Id].Title = entity.Title;
             EntitySet[entity.Id].Quantity = entity.Quantity;

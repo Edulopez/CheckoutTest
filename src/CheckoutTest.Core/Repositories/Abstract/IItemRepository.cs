@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CheckoutTest.Core.Repositories.Abstract
 {
-    public interface IShoppingListItemRepository : IWriteableRepository<Core.Entities.ShoppingListItem>
+    public interface IItemRepository : IWriteableRepository<Core.Entities.Item>
     {
     }
 }

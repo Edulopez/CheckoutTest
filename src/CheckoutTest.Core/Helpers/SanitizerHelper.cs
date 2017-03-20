@@ -19,7 +19,7 @@ namespace CheckoutTest.Core.Helpers
             return result;
         }
 
-        public static void Paranoide(ShoppingListItem item)
+        public static void Paranoide(Item item)
         {
             if (item == null) return;
             item.Title = Paranoide(item.Title);
