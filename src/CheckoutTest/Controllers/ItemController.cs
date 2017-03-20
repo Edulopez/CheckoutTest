@@ -19,6 +19,9 @@ namespace CheckoutTest.Controllers
             _itemService = itemService;
         }
 
+        /// <summary>
+        ///  Add a new item to the Cart
+        /// </summary>
         /// Post Carts/Item/
         [Route("")]
         [HttpPost]
@@ -36,8 +39,11 @@ namespace CheckoutTest.Controllers
             }
         }
 
+        /// <summary>
+        ///  Get an item by its title from the Cart
+        /// </summary>
         /// Get Carts/Item/{title:string}
-        [Route("")]
+        [Route("{title}")]
         [HttpGet]
         public HttpResponseMessage Get(string title)
         {
@@ -52,7 +58,10 @@ namespace CheckoutTest.Controllers
                 return Request.CreateResponse(HttpStatusCode.BadRequest, new { Message = "Not found" });
             }
         }
-        
+
+        /// <summary>
+        ///  Get all items from the Cart
+        /// </summary>
         /// Get Carts/Item/
         [Route("")]
         [HttpGet]
@@ -69,6 +78,9 @@ namespace CheckoutTest.Controllers
             }
         }
 
+        /// <summary>
+        ///  Update an item from the Cart
+        /// </summary>
         /// PUT Carts/Item/
         [Route("")]
         [HttpPut]
@@ -86,8 +98,11 @@ namespace CheckoutTest.Controllers
             }
         }
 
+        /// <summary>
+        ///  Delete an item from the Cart
+        /// </summary>
         /// Delete Carts/Item/{id}
-        [Route("")]
+        [Route("{id}")]
         [HttpDelete]
         public HttpResponseMessage Delete(int id)
         {
@@ -101,7 +116,5 @@ namespace CheckoutTest.Controllers
                 return Request.CreateResponse(HttpStatusCode.BadRequest, new { Message = result.Message });
             }
         }
-
-
     }
 }

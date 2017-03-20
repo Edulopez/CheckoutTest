@@ -8,8 +8,10 @@ using CheckoutTest.Core.Repositories.Abstract;
 using CheckoutTest.Core.Helpers;
 namespace CheckoutTest.Core.Services
 {
+    //Clean coded, adding only meanful comments (if needed). Code should be readable and explain by itself.
+
     /// <summary>
-    /// Contains all the logic related to the ShoppingListItems
+    /// Contains all the logic related to the Items
     /// </summary>
     public class ItemService : BaseService<Item>, IItemService
     {
