@@ -15,7 +15,7 @@ namespace CheckoutTest.Core.Services
     /// </summary>
     public class ItemService : BaseService<Item>, IItemService
     {
-        IItemRepository _itemRepository;    
+        IItemRepository _itemRepository;
         public ItemService(IItemRepository itemRepository)
         {
             _itemRepository = itemRepository;
@@ -33,7 +33,7 @@ namespace CheckoutTest.Core.Services
         public override TaskResult Create(Item entity)
         {
             ValidateOnCreate(entity);
-            if(TaskResult.ExecutedSuccesfully)
+            if (TaskResult.ExecutedSuccesfully)
             {
                 try
                 {
@@ -83,16 +83,20 @@ namespace CheckoutTest.Core.Services
 
         public IEnumerable<Item> GetItems()
         {
-                try
-                {
-                    return _itemRepository.GetAll();
-                }
-                catch (Exception ex)
-                {
-                    TaskResult.AddErrorMessage("Could not get all");
-                    TaskResult.Exception = ex;
-                    return null;
-                }
+            return _itemRepository.GetAll();
+        }
+        public IEnumerable<Item> GetItems(int pageNumber = 0, int count = 1)
+        {
+            try
+            {
+                return _itemRepository.GetByFilter(pageNumber, count, x => true);
+            }
+            catch (Exception ex)
+            {
+                TaskResult.AddErrorMessage("Could not get all");
+                TaskResult.Exception = ex;
+                return null;
+            }
         }
 
 
@@ -100,7 +104,7 @@ namespace CheckoutTest.Core.Services
         {
             if (entity == null) TaskResult.AddErrorMessage("Not a valid object");
 
-            else if( GetById(entity.Id) == null)
+            else if (GetById(entity.Id) == null)
                 TaskResult.AddErrorMessage("Item must exist");
 
             else if (GetItemByName(entity.Title) != null)
@@ -158,6 +162,7 @@ namespace CheckoutTest.Core.Services
     public interface IItemService : Framework.IBaseService<Item>
     {
         IEnumerable<Item> GetItems();
+        IEnumerable<Item> GetItems(int pageNumber, int count);
         Item GetItemByName(string itemName);
         Item GetById(int id);
     }

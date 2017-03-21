@@ -19,9 +19,6 @@ namespace CheckoutTest.Controllers
         public ActionResult Index()
         {
             APIClient Api = new APIClient();
-
-
-           
             try
             {
                 var res = Api.ItemService.CreateItem(new Checkout.ApiServices.Items.RequestModels.CreateItemRequest()
@@ -39,11 +36,18 @@ namespace CheckoutTest.Controllers
             }
             catch (Exception ex) { }
 
-          
+            var item = Api.ItemService.GetItemByTitle("Edu");
 
 
             var result = Api.ItemService.GetItems();
-            
+
+            result = Api.ItemService.GetItems(
+                new Checkout.ApiServices.Items.RequestModels.GetItemListRequest()
+                {
+                    PageNumber ="0",
+                    Count = 1
+                });
+
             List<Core.Entities.Item> L = new List<Core.Entities.Item>();
             foreach(var r in result.Model)
             {

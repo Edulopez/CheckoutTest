@@ -7,6 +7,7 @@ using Checkout.ApiServices.RecurringPayments.ResponseModels;
 using Checkout.ApiServices.SharedModels;
 using Checkout.ApiServices.Items.RequestModels;
 using Checkout.ApiServices.Items.ResponseModels;
+using Checkout.Utilities;
 
 namespace Checkout.ApiServices.Items
 {
@@ -30,6 +31,23 @@ namespace Checkout.ApiServices.Items
         public HttpResponse<List<Item>> GetItems()
         {
             return new ApiHttpClient().GetRequest<List<Item>>(ApiUrls.Item, AppSettings.SecretKey);
+        }
+
+        public HttpResponse<List<Item>> GetItems(GetItemListRequest requestModel)
+        {
+            var getItemsListUri = ApiUrls.Item;
+
+            if (requestModel.Count.HasValue)
+            {
+                getItemsListUri = UrlHelper.AddParameterToUrl(getItemsListUri, "count", requestModel.Count.ToString());
+            }
+            int pageNumber;
+            if (int.TryParse(requestModel.PageNumber, out pageNumber))
+            {
+                int x = 0;
+                getItemsListUri = UrlHelper.AddParameterToUrl(getItemsListUri, "pageNumber", requestModel.PageNumber);
+            }
+            return new ApiHttpClient().GetRequest<List<Item>>(getItemsListUri, AppSettings.SecretKey);
         }
 
         /// <summary>

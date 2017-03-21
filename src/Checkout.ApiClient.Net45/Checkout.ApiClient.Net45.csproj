@@ -88,7 +88,7 @@
     <Compile Include="ApiServices\Items\ItemService.cs" />
     <Compile Include="ApiServices\Items\RequestModels\BaseItem.cs" />
     <Compile Include="ApiServices\Items\RequestModels\CreateItemRequest.cs" />
-    <Compile Include="ApiServices\Items\RequestModels\GetItemRequest.cs" />
+    <Compile Include="ApiServices\Items\RequestModels\GetItemListRequest.cs" />
     <Compile Include="ApiServices\Items\RequestModels\UpdateItemRequest.cs" />
     <Compile Include="ApiServices\Items\ResponseModels\Item.cs" />
     <Compile Include="ApiServices\Items\ResponseModels\ItemList.cs" />

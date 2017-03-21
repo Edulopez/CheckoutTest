@@ -79,6 +79,25 @@ namespace CheckoutTest.Controllers
         }
 
         /// <summary>
+        ///  Get all items from the Cart
+        /// </summary>
+        /// Get Carts/Item/
+        [Route("")]
+        [HttpGet]
+        public HttpResponseMessage Get(int pageNumber, int count= 20)
+        {
+            var result = _itemService.GetItems(pageNumber, count);
+            if (result != null)
+            {
+                return Request.CreateResponse(HttpStatusCode.OK, result);
+            }
+            else
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest, new { Message = "Could not get all" });
+            }
+        }
+
+        /// <summary>
         ///  Update an item from the Cart
         /// </summary>
         /// PUT Carts/Item/
