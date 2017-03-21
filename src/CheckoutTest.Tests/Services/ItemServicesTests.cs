@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace CheckoutTest.Core.Services.Tests
 {
     [TestClass()]
-    public class ShoppingListServicesTests
+    public class itemServicesTests
     {
         [TestMethod()]
         public void ShoppingListServicesTest()

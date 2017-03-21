@@ -14,7 +14,7 @@ namespace Checkout.ApiServices.Items
     public class ItemService
     {
         /// <summary>
-        /// 
+        /// Create a new item
         /// </summary>
         /// <param name="requestModel"></param>
         /// <returns></returns>
@@ -24,7 +24,7 @@ namespace Checkout.ApiServices.Items
         }
 
         /// <summary>
-        /// 
+        /// Get all the items
         /// </summary>
         /// <param name="requestModel"></param>
         /// <returns></returns>
@@ -33,6 +33,11 @@ namespace Checkout.ApiServices.Items
             return new ApiHttpClient().GetRequest<List<Item>>(ApiUrls.Item, AppSettings.SecretKey);
         }
 
+        /// <summary>
+        /// Get items paginated
+        /// </summary>
+        /// <param name="requestModel"></param>
+        /// <returns></returns>
         public HttpResponse<List<Item>> GetItems(GetItemListRequest requestModel)
         {
             var getItemsListUri = ApiUrls.Item;
@@ -51,7 +56,7 @@ namespace Checkout.ApiServices.Items
         }
 
         /// <summary>
-        /// 
+        /// Get an item by Title
         /// </summary>
         /// <param name="requestModel"></param>
         /// <returns></returns>
@@ -61,7 +66,7 @@ namespace Checkout.ApiServices.Items
         }
 
         /// <summary>
-        /// 
+        /// Update an item
         /// </summary>
         /// <param name="requestModel"></param>
         /// <returns></returns>
@@ -71,7 +76,7 @@ namespace Checkout.ApiServices.Items
         }
 
         /// <summary>
-        /// 
+        /// Delete an item
         /// </summary>
         /// <param name="requestModel"></param>
         /// <returns></returns>

@@ -91,7 +91,6 @@
     <Compile Include="ApiServices\Items\RequestModels\GetItemListRequest.cs" />
     <Compile Include="ApiServices\Items\RequestModels\UpdateItemRequest.cs" />
     <Compile Include="ApiServices\Items\ResponseModels\Item.cs" />
-    <Compile Include="ApiServices\Items\ResponseModels\ItemList.cs" />
     <Compile Include="ApiServices\Lookups\LookupsService.cs" />
     <Compile Include="ApiServices\Lookups\ResponseModels\CountryInfo.cs" />
     <Compile Include="ApiServices\Lookups\ResponseModels\LocalPaymentData.cs" />
