@@ -12,6 +12,7 @@ namespace CheckoutTest.Dal.Repositories
         /// <summary>
         /// In memory database
         /// </summary>
+        /// @TODO Change this to InMemoryStorage that implements IStorage
         private static Dictionary<int, T> Database { get; set; } = new Dictionary<int, T>();
         
         protected Dictionary<int, T> EntitySet

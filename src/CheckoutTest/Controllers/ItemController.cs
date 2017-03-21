@@ -10,6 +10,7 @@ using CheckoutTest.Core.Helpers;
 
 namespace CheckoutTest.Controllers
 {
+    //[Authorize]
     [RoutePrefix("Carts/items")]
     public class ItemController : ApiController
     {
@@ -79,7 +80,7 @@ namespace CheckoutTest.Controllers
         }
 
         /// <summary>
-        ///  Get all items from the Cart
+        ///  Get all items paginated from the Cart
         /// </summary>
         /// Get Carts/Item/
         [Route("")]
