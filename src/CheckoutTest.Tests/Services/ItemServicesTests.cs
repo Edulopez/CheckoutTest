@@ -15,13 +15,6 @@ namespace CheckoutTest.Core.Services.Tests
     [TestClass()]
     public class itemServicesTests
     {
-        //IItemService _itemService = new ItemService(null);
-        [TestMethod()]
-        public void ShoppingListServicesTest()
-        {
-            Assert.Fail();
-        }
-
         [TestMethod()]
         public void ValidateOnCreateTest()
         {
