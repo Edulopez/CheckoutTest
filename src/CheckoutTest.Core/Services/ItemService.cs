@@ -83,7 +83,16 @@ namespace CheckoutTest.Core.Services
 
         public IEnumerable<Item> GetItems()
         {
-            return _itemRepository.GetAll();
+            try
+            {
+                return _itemRepository.GetAll();
+            }
+            catch (Exception ex)
+            {
+                TaskResult.AddErrorMessage("Could not get all");
+                TaskResult.Exception = ex;
+                return null;
+            }
         }
         public IEnumerable<Item> GetItems(int pageNumber = 0, int count = 1)
         {
